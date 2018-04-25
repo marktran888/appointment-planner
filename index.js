@@ -1,4 +1,9 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+mongoose.plugin(require('mongoose-unique-validator'));
+mongoose.Promise = require('bluebird');
+
 
 const app = express();
 const port = 4000;
