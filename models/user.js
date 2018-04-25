@@ -5,8 +5,8 @@ const schema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  userType: { type: String, required: true }
-  // appointments: [{ type: mongoose.Schema.ObjectId, ref: 'Image' }],
+  userType: { type: String, required: true },
+  appointments: [{ type: mongoose.Schema.ObjectId, ref: 'Appointment' }]
 });
 
 
@@ -24,7 +24,6 @@ schema.pre('validate', function checkPassword(next) {
   // check if the password has been modified and if so whether the password and the passwordConfirmation match
   // if not invalidate the passwordConfirmation, so that the validations fail
   if(this.isModified('password') && this._passwordConfirmation !== this.password) this.invalidate('passwordConfirmation', 'does not match');
-
   // otherwise continue to the next step (validation)
   next();
 });
