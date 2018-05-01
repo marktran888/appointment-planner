@@ -13,8 +13,23 @@ function showRoute(req, res, next) {
     .catch(next);
 }
 
+function appointmentsCreateRoute(req, res, next) {
+  // req.body.user = req.currentUser;
+  User
+    .findById(req.params.id)
+    .then(user => {
+      console.log('req body', req.body);
+      user.appointments.push(req.body);
+      return user.save();
+    })
+    // .then(image => Image.populate(image, { path: 'comments.user' }))
+    .then(user => res.json(user))
+    .catch(next);
+}
+
 
 module.exports = {
   index: indexRoute,
-  show: showRoute
+  show: showRoute,
+  appointmentsCreate: appointmentsCreateRoute
 };

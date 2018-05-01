@@ -1,13 +1,25 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const appointmentSchema = new mongoose.Schema({
+  date: { type: String, required: true },
+  time: { type: String, required: true }
+  // customer: { type: mongoose.Schema.ObjectId, ref: 'User' }
+  // business: { type: mongoose.Schema.ObjectId, ref: 'User' },
+  // confirmed: { type: Boolean}
+});
+
 const schema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   userType: { type: String, required: true },
-  appointments: [{ type: mongoose.Schema.ObjectId, ref: 'Appointment' }]
+  // appointments: [{ type: mongoose.Schema.ObjectId, ref: 'Appointment' }]
+  appointments: [ appointmentSchema ]
 });
+
+
+
 
 
 // set up the passwordConfirmation virtual

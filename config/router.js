@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const secureRoute = require('../lib/secureRoute');
+const secureRoute = require('../lib/secureRoute');
 const appointments = require('../controllers/appointments');
 const auth = require('../controllers/auth');
 const users = require('../controllers/users');
@@ -27,7 +27,8 @@ router.route('/users')
   .get(users.index);
 
 router.route('/users/:id')
-  .get(users.show);
+  .get(users.show)
+  .post(secureRoute, users.appointmentsCreate);
 
 router.route('/*')
   .all((req, res) => res.status(404).json({ message: 'Not found' }));

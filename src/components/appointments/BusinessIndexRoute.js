@@ -11,14 +11,14 @@ class BusinessIndexRoute extends React.Component {
   state = {
     date: '',
     time: '',
-    currentUser: ''
+    customer: ''
   };
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`, {
       headers: { Authorization: Auth.getToken() }
     })
-      .then(res => this.setState({ currentUser: res.data._id }, () => console.log('currentuser', this.state.currentUser)))
+      // .then(res => this.setState({ currentUser: res.data._id }, () => console.log('currentuser', this.state.currentUser)))
       .catch(err => console.error('ERROR', err));
   }
 
@@ -26,9 +26,9 @@ class BusinessIndexRoute extends React.Component {
   handleChange = ({ target: { name, value } }) => {
     // const user = User.getUser();
     // destructuring e.target.name
-    const errors = Object.assign({}, this.state.errors, { [name]: '' });
+    // const errors = Object.assign({}, this.state.errors, { [name]: '' });
     // clearing the errors
-    this.setState({ [name]: value, errors }, () => console.log('this.state in handlechange', this.state));
+    this.setState({ [name]: value }, () => console.log('this.state in handlechange', this.state));
     // name in [] makes it a variable. Otherwise it would look for 'name' in state.
   }
 
@@ -36,13 +36,13 @@ class BusinessIndexRoute extends React.Component {
     e.preventDefault();
 
     axios({
-      method: 'PUT',
+      method: 'POST',
       url: `/api/users/${this.props.match.params.id}`,
       headers: { Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
       // .then(() => this.props.history.push('/info'))
-      .then((res) => console.log(res.data))
+      .then((res) => console.log('res', res.data))
       .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
