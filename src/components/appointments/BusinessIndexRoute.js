@@ -11,25 +11,21 @@ class BusinessIndexRoute extends React.Component {
   state = {
     date: '',
     time: '',
-    customer: ''
+    customer: '',
+    business: null
   };
 
   componentDidMount() {
-    axios.get(`/api/users/${this.props.match.params.id}`, {
+    axios.get(`/api/users/${this.props.match.params.id}`, { //business
       headers: { Authorization: Auth.getToken() }
     })
-      // .then(res => this.setState({ currentUser: res.data._id }, () => console.log('currentuser', this.state.currentUser)))
+      .then(res => this.setState({ business: res.data }, () => console.log('business', this.state.business.appointments)))
       .catch(err => console.error('ERROR', err));
   }
 
 
   handleChange = ({ target: { name, value } }) => {
-    // const user = User.getUser();
-    // destructuring e.target.name
-    // const errors = Object.assign({}, this.state.errors, { [name]: '' });
-    // clearing the errors
     this.setState({ [name]: value }, () => console.log('this.state in handlechange', this.state));
-    // name in [] makes it a variable. Otherwise it would look for 'name' in state.
   }
 
   handleSubmit = (e) => {
@@ -41,8 +37,8 @@ class BusinessIndexRoute extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}`},
       data: this.state
     })
+      .then((res) => this.setState({ business: res.data }))
       // .then(() => this.props.history.push('/info'))
-      .then((res) => console.log('res', res.data))
       .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
@@ -72,6 +68,19 @@ class BusinessIndexRoute extends React.Component {
           </div>
           <button className="button submit-button">Submit</button>
         </form>
+
+        { this.state.business &&
+        <ul className="columns is-multiline">
+          {this.state.business.appointments.map(appointment =>
+            <li key={appointment._id} className="column is-full-desktop">
+              <div className="card">
+                <p>{appointment.date} {appointment.time}</p>
+              </div>
+            </li>
+          )}
+        </ul>
+        }
+
       </main>
     );
   }
