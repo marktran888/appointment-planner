@@ -9,9 +9,9 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
-import BusinessIndexRoute from './components/appointments/BusinessIndexRoute';
-// import CustomerIndexRoute from './components/appointments/CustomerIndexRoute';
-import CustomerShowBusinessesRoute from './components/appointments/CustomerShowBusinessesRoute';
+import BusinessIndexRoute from './components/businesses/BusinessIndexRoute';
+import CustomerIndexRoute from './components/customers/CustomerIndexRoute';
+import CustomerShowBusinessesRoute from './components/customers/CustomerShowBusinessesRoute';
 
 import Auth from './lib/Auth';
 // import User from './lib/User';
@@ -25,7 +25,7 @@ class App extends React.Component {
         <main>
           <Switch>
             <Route path="/business/users/:id" component={BusinessIndexRoute} />
-            {/* <Route path="/customer/users/:id" component={CustomerIndexRoute} /> */}
+            <Route path="/customer/users/business/:id" component={CustomerIndexRoute} />
             <Route path="/customer/users/:id" component={CustomerShowBusinessesRoute} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />

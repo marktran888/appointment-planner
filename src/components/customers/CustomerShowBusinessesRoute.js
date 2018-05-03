@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CustomerShowBusinessesRoute extends React.Component {
 
@@ -28,9 +28,11 @@ class CustomerShowBusinessesRoute extends React.Component {
         <ul className="columns is-multiline">
           {this.state.users.map(user =>
             <li key={user._id} className="column is-full-desktop">
-              <div className="card">
-                <p>{user.businessName}</p>
-              </div>
+              <Link to={`business/${user._id}`}>
+                <div className="card">
+                  <p>{user.businessName}</p>
+                </div>
+              </Link>
             </li>
           )}
         </ul>
