@@ -45,42 +45,43 @@ class BusinessIndexRoute extends React.Component {
 
   render() {
     return (
-      <main className="new-form">
-        <form className="upload-form" onSubmit={this.handleSubmit}>
-          <h1 className="add-appt">Add a new appointment:</h1>
-          <div className="field">
-            <input
-              className="input input-field"
-              placeholder="Date"
-              value={this.state.date}
-              name="date"
-              onChange={this.handleChange}
-            />
-          </div>
-          <div className="field">
-            <input
-              className="input input-field"
-              placeholder="Time"
-              value={this.state.time}
-              name="time"
-              onChange={this.handleChange}
-            />
-          </div>
-          <button className="button submit-button">Submit</button>
-        </form>
+      this.state.business &&
+      <main>
+        <h1>{this.state.business.businessName}</h1>
+        <section className="new-form">
+          <form className="upload-form" onSubmit={this.handleSubmit}>
+            <h1 className="add-appt">Add a new appointment:</h1>
+            <div className="field">
+              <input
+                className="input input-field"
+                placeholder="Date"
+                value={this.state.date}
+                name="date"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="field">
+              <input
+                className="input input-field"
+                placeholder="Time"
+                value={this.state.time}
+                name="time"
+                onChange={this.handleChange}
+              />
+            </div>
+            <button className="button submit-button">Submit</button>
+          </form>
 
-        { this.state.business &&
-        <ul className="columns is-multiline">
-          {this.state.business.appointments.map(appointment =>
-            <li key={appointment._id} className="column is-full-desktop">
-              <div className="card">
-                <p>{appointment.date} {appointment.time}</p>
-              </div>
-            </li>
-          )}
-        </ul>
-        }
-
+          <ul className="columns is-multiline">
+            {this.state.business.appointments.map(appointment =>
+              <li key={appointment._id} className="column is-full-desktop">
+                <div className="card">
+                  <p>{appointment.date} {appointment.time}</p>
+                </div>
+              </li>
+            )}
+          </ul>
+        </section>
       </main>
     );
   }

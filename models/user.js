@@ -14,11 +14,10 @@ const schema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   userType: { type: String, required: true },
+  businessName: { type: String },
   // appointments: [{ type: mongoose.Schema.ObjectId, ref: 'Appointment' }]
   appointments: [ appointmentSchema ]
 });
-
-
 
 
 

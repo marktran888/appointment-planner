@@ -14,6 +14,7 @@ mongoose.connect(dbURI, (err, db) => {
     password: 'password',
     passwordConfirmation: 'password',
     userType: 'business',
+    businessName: 'Sir Marxalot',
     appointments: [{
       date: '22/04/18',
       time: '13:00 - 14:00'

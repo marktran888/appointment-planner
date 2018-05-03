@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const secureRoute = require('../lib/secureRoute');
-const appointments = require('../controllers/appointments');
+// const appointments = require('../controllers/appointments');
 const auth = require('../controllers/auth');
 const users = require('../controllers/users');
 
@@ -13,14 +13,14 @@ router.route('/login')
   .post(auth.login);
 
 // APPOINTMENTS
-router.route('/appointments')
-  .get(appointments.index) // display all appointments
-  .post(appointments.create); // sr / business to create new appointment
+// router.route('/appointments')
+//   .get(appointments.index) // display all appointments
+//   .post(appointments.create); // sr / business to create new appointment
 
-router.route('/appointments/:id')
-  .get(appointments.show) // showing specific details of the appointment
-  .put(appointments.update) //sr / to select or deselect an appointment to their schedule
-  .delete(appointments.delete); //sr / business to delete appointments
+// router.route('/appointments/:id')
+//   .get(appointments.show) // showing specific details of the appointment
+//   .put(appointments.update) //sr / to select or deselect an appointment to their schedule
+//   .delete(appointments.delete); //sr / business to delete appointments
 
 // USERS
 router.route('/users')
