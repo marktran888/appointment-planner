@@ -21,8 +21,18 @@ class CustomerIndexRoute extends React.Component {
 
   render() {
     return (
+      this.state.business &&
       <main>
-
+        <h1>{this.state.business.businessName}</h1>
+        <ul className="columns is-multiline">
+          {this.state.business.appointments.map(appointment =>
+            <li key={appointment._id} className="column is-full-desktop">
+              <div className="card">
+                <p>{appointment.date} {appointment.time}</p>
+              </div>
+            </li>
+          )}
+        </ul>
       </main>
     );
   }
