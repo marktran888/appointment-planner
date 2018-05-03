@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 class CustomerIndexRoute extends React.Component {
 
   state = {
+    appointmentId: '',
     business: null
   };
 
@@ -18,6 +19,18 @@ class CustomerIndexRoute extends React.Component {
       .catch(err => console.error('ERROR', err));
   }
 
+  bookAppointment = (appointment) => {
+    this.setState({ appointmentId: appointment._id}, () => console.log('appointmentId in state', this.state.appointmentId));
+    // this.setState({ appointmentId: appointment._id });
+    // const bookedAppointment = Object.assign({}, this.state.business);
+    // bookedAppointment.appointments.id.booked = true;
+    // // bookedAppointment.booked = true;
+    // this.setState({ business: bookedAppointment });
+
+    // axios.put(`/api/users/${this.props.match.params.id}`); //business Id
+    // .then(() => this.props.history.push(`/images/${this.props.match.params.id}/edit`));
+  }
+
 
   render() {
     return (
@@ -27,7 +40,7 @@ class CustomerIndexRoute extends React.Component {
         <ul className="columns is-multiline">
           {this.state.business.appointments.map(appointment =>
             <li key={appointment._id} className="column is-full-desktop">
-              <div className="card">
+              <div className="card" onClick={() => this.bookAppointment(appointment)}>
                 <p>{appointment.date} {appointment.time}</p>
               </div>
             </li>

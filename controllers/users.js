@@ -27,9 +27,19 @@ function appointmentsCreateRoute(req, res, next) {
     .catch(next);
 }
 
+function appointmentsBookRoute(req, res, next) {
+  return User.findById(req.params.id)
+    .then(appointment => Object.assign(appointment, req.body))
+    .then(appointment => appointment.save())
+    .then(appointment => res.json(appointment))
+    .catch(next);
+}
+
+
 
 module.exports = {
   index: indexRoute,
   show: showRoute,
-  appointmentsCreate: appointmentsCreateRoute
+  appointmentsCreate: appointmentsCreateRoute,
+  appointmentsBook: appointmentsBookRoute
 };

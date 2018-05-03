@@ -24,7 +24,7 @@
 //     .then(appointment => res.json(appointment))
 //     .catch(next);
 // }
-//
+// 
 // function updateRoute(req, res, next) {
 //   return Appointment.findById(req.params.id)
 //     .then(appointment => Object.assign(appointment, req.body))

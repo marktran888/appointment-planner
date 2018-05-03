@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 
 const appointmentSchema = new mongoose.Schema({
   date: { type: String, required: true },
-  time: { type: String, required: true }
+  time: { type: String, required: true },
+  booked: { type: Boolean} //booked by customer
   // customer: { type: mongoose.Schema.ObjectId, ref: 'User' }
   // business: { type: mongoose.Schema.ObjectId, ref: 'User' },
   // confirmed: { type: Boolean}
