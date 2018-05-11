@@ -11,14 +11,14 @@ class CustomerIndexRoute extends React.Component {
   state = {
     appointment: '',
     currentUser: '',
-    res: '',
-    business: null
+    business: null,
+    currentUserAppointments: ''
   };
 
   componentDidMount() {
     const currentUser = User.getUser();
     axios.get('/api/users')
-      .then(res => this.setState({ res: res.data, currentUser: currentUser }, () => console.log('thisstate',this.state)));
+      .then(res => this.setState({ currentUserAppointments: res.data[0].appointments, currentUser: currentUser }));
 
     axios.get(`/api/users/${this.props.match.params.id}`, { //business
       headers: { Authorization: Auth.getToken() }
@@ -35,7 +35,7 @@ class CustomerIndexRoute extends React.Component {
         url: `/api/users/${this.props.match.params.id}`,
         data: { appointment: this.state.appointment, currentUser: this.state.currentUser }
       })
-        .then(console.log('ok'));
+        .then(res => this.setState({currentUserAppointments: res.data.appointments}, () => console.log('curreent user appointments', this.state.currentUserAppointments)));
     });
   }
 
@@ -54,6 +54,20 @@ class CustomerIndexRoute extends React.Component {
             </li>
           )}
         </ul>
+        {this.state.currentUserAppointments &&
+          <section>
+            <h2>Your Appointments:</h2>
+            <ul className="columns is-multiline">
+              {this.state.currentUserAppointments.map(appointment =>
+                <li key={appointment._id} className="column is-full-desktop">
+                  <div className="card">
+                    <p>{appointment.date} {appointment.time}</p>
+                  </div>
+                </li>
+              )}
+            </ul>
+          </section>
+        }
       </main>
     );
   }
