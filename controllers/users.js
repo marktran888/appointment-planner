@@ -22,16 +22,18 @@ function appointmentsCreateRoute(req, res, next) {
       user.appointments.push(req.body);
       return user.save();
     })
-    // .then(image => Image.populate(image, { path: 'comments.user' }))
     .then(user => res.json(user))
     .catch(next);
 }
 
 function appointmentsBookRoute(req, res, next) {
-  return User.findById(req.params.id)
-    .then(appointment => Object.assign(appointment, req.body))
-    .then(appointment => appointment.save())
-    .then(appointment => res.json(appointment))
+  User
+    .findById(req.body.currentUser.id)
+    .then(user => {
+      user.appointments.push(req.body.appointment);
+      return user.save();
+    })
+    .then(user => res.json(user))
     .catch(next);
 }
 

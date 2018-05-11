@@ -1,17 +1,25 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import User from '../../lib/User';
+
 
 import { Link } from 'react-router-dom';
 
 class CustomerIndexRoute extends React.Component {
 
   state = {
-    appointmentId: '',
+    appointment: '',
+    currentUser: '',
+    res: '',
     business: null
   };
 
   componentDidMount() {
+    const currentUser = User.getUser();
+    axios.get('/api/users')
+      .then(res => this.setState({ res: res.data, currentUser: currentUser }, () => console.log('thisstate',this.state)));
+
     axios.get(`/api/users/${this.props.match.params.id}`, { //business
       headers: { Authorization: Auth.getToken() }
     })
@@ -20,15 +28,15 @@ class CustomerIndexRoute extends React.Component {
   }
 
   bookAppointment = (appointment) => {
-    this.setState({ appointmentId: appointment._id}, () => console.log('appointmentId in state', this.state.appointmentId));
-    // this.setState({ appointmentId: appointment._id });
-    // const bookedAppointment = Object.assign({}, this.state.business);
-    // bookedAppointment.appointments.id.booked = true;
-    // // bookedAppointment.booked = true;
-    // this.setState({ business: bookedAppointment });
-
-    // axios.put(`/api/users/${this.props.match.params.id}`); //business Id
-    // .then(() => this.props.history.push(`/images/${this.props.match.params.id}/edit`));
+    console.log('app', appointment);
+    this.setState({ appointment: appointment}, () => {
+      axios({
+        method: 'POST',
+        url: `/api/users/${this.props.match.params.id}`,
+        data: { appointment: this.state.appointment, currentUser: this.state.currentUser }
+      })
+        .then(console.log('ok'));
+    });
   }
 
 

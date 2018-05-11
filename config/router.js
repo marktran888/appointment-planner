@@ -28,7 +28,8 @@ router.route('/users')
 
 router.route('/users/:id')
   .get(users.show)
-  .post(secureRoute, users.appointmentsCreate);
+  .post(users.appointmentsBook);
+  // .post(secureRoute, users.appointmentsCreate);
 
 router.route('/*')
   .all((req, res) => res.status(404).json({ message: 'Not found' }));

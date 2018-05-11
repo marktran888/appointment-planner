@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import User from '../../lib/User';
+
 // import Flash from '../../lib/Flash';
 
 class Login extends React.Component {
@@ -19,6 +21,7 @@ class Login extends React.Component {
       // the response has the user, token and message. We need to put it in local storage.
       .then(res => {
         Auth.setToken(res.data.token);
+        User.setUser(res.data.user);
         id = res.data.user._id;
         userType  = res.data.user.userType;
       })
@@ -26,6 +29,7 @@ class Login extends React.Component {
       .then(() => this.setState({ userType: userType }))
       .then(() => this.props.history.push(`/${userType}/users/${id}`));
   }
+
 
   render() {
     return (
