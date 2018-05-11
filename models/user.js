@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt');
 const appointmentSchema = new mongoose.Schema({
   date: { type: String, required: true },
   time: { type: String, required: true },
-  booked: { type: Boolean} //booked by customer
-  // customer: { type: mongoose.Schema.ObjectId, ref: 'User' }
+  booked: { type: Boolean}, //booked by customer
+  customer: { type: mongoose.Schema.ObjectId, ref: 'User' }
   // business: { type: mongoose.Schema.ObjectId, ref: 'User' },
   // confirmed: { type: Boolean}
 });
@@ -16,7 +16,6 @@ const schema = new mongoose.Schema({
   password: { type: String, required: true },
   userType: { type: String, required: true },
   businessName: { type: String },
-  // appointments: [{ type: mongoose.Schema.ObjectId, ref: 'Appointment' }]
   appointments: [ appointmentSchema ]
 });
 

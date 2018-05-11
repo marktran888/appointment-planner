@@ -4,7 +4,7 @@ import Auth from '../../lib/Auth';
 import User from '../../lib/User';
 
 
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 class CustomerIndexRoute extends React.Component {
 
@@ -31,8 +31,9 @@ class CustomerIndexRoute extends React.Component {
     console.log('app', appointment);
     this.setState({ appointment: appointment}, () => {
       axios({
-        method: 'POST',
+        method: 'PUT',
         url: `/api/users/${this.props.match.params.id}`,
+        headers: { Authorization: `Bearer ${Auth.getToken()}`},
         data: { appointment: this.state.appointment, currentUser: this.state.currentUser }
       })
         .then(res => this.setState({currentUserAppointments: res.data.appointments}, () => console.log('curreent user appointments', this.state.currentUserAppointments)));

@@ -28,8 +28,8 @@ router.route('/users')
 
 router.route('/users/:id')
   .get(users.show)
-  .post(users.appointmentsBook);
-  // .post(secureRoute, users.appointmentsCreate);
+  .put(secureRoute, users.appointmentsBook) // customer booking appointments
+  .post(secureRoute, users.appointmentsCreate); // business creating new appointments
 
 router.route('/*')
   .all((req, res) => res.status(404).json({ message: 'Not found' }));
